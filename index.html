@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Ten Years a Nation: You Run the Republic of Texas</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --field:#12284c; --field-deep:#0b1b36; --field-line:#27406e;
+  --bone:#efebdd; --bone-dim:#b9c2d6;
+  --paper:#f1eddf; --paper-edge:#d8d0b8; --ink:#1a1712; --ink-soft:#5a5346;
+  --red:#b5301f; --red-deep:#8a2114; --brass:#c9a24b; --brass-lite:#e7c979;
+  --good:#2f6b46;
+  --display:"Abril Fatface","Bodoni 72","Didot",Georgia,serif;
+  --body:"Libre Caslon Text","Iowan Old Style","Palatino Linotype",Georgia,serif;
+}
+@media (prefers-color-scheme: dark){
+  :root{ color-scheme:dark; --field:#0c1c38; --field-deep:#071226; --field-line:#1f3560;
+    --bone:#e9e4d4; --paper:#e6e1d0; --paper-edge:#c9c1a8; }
+}
+*{box-sizing:border-box}
+html{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html,body{margin:0}
+body{
+  background:var(--field); color:var(--bone); font-family:var(--body); font-size:17px; line-height:1.6;
+  min-height:100vh;
+  background-image:
+    repeating-radial-gradient(circle at 12% -10%, transparent 0 22px, rgba(255,255,255,.035) 22px 23px),
+    repeating-radial-gradient(circle at 105% 110%, transparent 0 26px, rgba(255,255,255,.03) 26px 27px);
+  background-attachment:fixed;
+}
+button{font:inherit;color:inherit;cursor:pointer}
+:focus-visible{outline:3px solid var(--brass-lite);outline-offset:3px}
+h1,h2,h3{font-family:var(--display);font-weight:400;line-height:1.05;margin:0}
+p{margin:0 0 .9em}
+.hidden{display:none !important}
+
+/* masthead */
+.mast{display:flex;align-items:center;gap:14px;padding:10px 18px;border-bottom:1px solid var(--field-line);flex-wrap:wrap}
+.mast .brand{display:flex;align-items:center;gap:10px;font-family:var(--display);font-size:1.15rem;letter-spacing:.01em}
+.mast .brand svg{width:22px;height:22px;fill:var(--brass)}
+.mast .when{margin-left:auto;font-style:italic;color:var(--bone-dim);text-align:right;font-size:.95rem}
+.mast .when b{font-style:normal;font-family:var(--display);font-weight:400;color:var(--bone);font-size:1.25rem;margin-right:8px}
+.tog{background:transparent;border:1px solid var(--field-line);border-radius:999px;padding:4px 12px;font-size:.85rem;color:var(--bone-dim)}
+.tog[aria-pressed="true"]{border-color:var(--brass);color:var(--brass-lite)}
+
+main{max-width:1180px;margin:0 auto;padding:22px 18px 80px}
+.screen{display:none}.screen.on{display:block}
+
+/* buttons */
+.btn{background:var(--red);color:#fff;border:0;border-radius:4px;padding:12px 22px;font-family:var(--display);font-size:1.1rem;letter-spacing:.02em;box-shadow:0 3px 0 var(--red-deep)}
+.btn:active{transform:translateY(2px);box-shadow:0 1px 0 var(--red-deep)}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.btn.quiet{background:transparent;color:var(--bone);border:1px solid var(--brass);box-shadow:none;font-family:var(--body);font-size:1rem}
+.paper .btn.quiet{color:var(--ink);border-color:var(--ink-soft)}
+.hh{outline:3px solid var(--brass-lite) !important;outline-offset:3px}
+
+/* intro */
+#intro{display:none;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center;min-height:70vh}
+#intro.on{display:grid}
+#intro h1{font-size:clamp(3rem,8.5vw,6.6rem);letter-spacing:-.01em}
+#intro .lede{font-size:1.2rem;max-width:34em;margin:22px 0 26px;color:var(--bone)}
+.field-row{display:flex;gap:12px;flex-wrap:wrap;align-items:end;margin-bottom:16px}
+label.name{display:flex;flex-direction:column;gap:4px;font-style:italic;color:var(--bone-dim);font-size:.95rem}
+label.name input{font:inherit;font-style:normal;font-size:1.1rem;padding:10px 12px;border-radius:4px;border:1px solid var(--brass);background:var(--field-deep);color:var(--bone);min-width:240px}
+.fine{font-size:.88rem;color:var(--bone-dim);max-width:38em}
+#intro details{margin-top:18px;font-size:.92rem;color:var(--bone-dim);max-width:40em}
+#intro summary{cursor:pointer;color:var(--brass-lite)}
+.bigstar{width:100%;max-width:420px;justify-self:center}
+.bigstar path{fill:none;stroke:var(--brass);stroke-width:1.2;stroke-dasharray:400;stroke-dashoffset:400;animation:draw 2.2s ease-out .2s forwards}
+.bigstar path.fill{fill:var(--brass);stroke:none;opacity:0;animation:fadein 1s ease 2s forwards}
+.bigstar circle{fill:none;stroke:var(--field-line);stroke-width:.5}
+@keyframes draw{to{stroke-dashoffset:0}}
+@keyframes fadein{to{opacity:1}}
+
+/* oath */
+#oath{text-align:center;max-width:720px;margin:0 auto}
+#oath h2{font-size:clamp(2rem,5vw,3.2rem);margin:20px 0 8px}
+#oath blockquote{font-size:1.25rem;line-height:1.7;margin:22px 0;font-style:italic}
+.ring{width:170px;height:170px;margin:10px auto 16px;position:relative}
+.ring svg{width:100%;height:100%;transform:rotate(-90deg)}
+.ring circle{fill:none;stroke-width:8}
+.ring .bg{stroke:var(--field-line)}
+.ring .fg{stroke:var(--brass);stroke-linecap:round;stroke-dasharray:440;stroke-dashoffset:440}
+.ring .hand{position:absolute;inset:0;display:grid;place-items:center;font-size:64px}
+
+/* game layout */
+#game{display:none;grid-template-columns:300px 1fr;gap:26px;align-items:start}
+#game.on{display:grid}
+.ledger{position:sticky;top:12px}
+.note{background:var(--red);color:#fff;border-radius:4px;padding:12px 14px 14px;position:relative;overflow:hidden;
+  background-image:repeating-linear-gradient(45deg,rgba(255,255,255,.07) 0 2px,transparent 2px 7px),repeating-linear-gradient(-45deg,rgba(0,0,0,.08) 0 2px,transparent 2px 7px);
+  box-shadow:inset 0 0 0 3px var(--red),inset 0 0 0 4px rgba(255,255,255,.55)}
+.note i{font-size:.85rem;opacity:.9}
+.note .amt{font-family:var(--display);font-size:2.3rem;line-height:1.1}
+.note .vs{font-size:.82rem;opacity:.9}
+.meter{margin-top:14px}
+.meter .lab{display:flex;justify-content:space-between;font-size:.92rem}
+.meter .lab span:last-child{color:var(--bone-dim)}
+.bar{height:9px;background:var(--field-deep);border:1px solid var(--field-line);border-radius:999px;overflow:hidden}
+.bar i{display:block;height:100%;background:var(--brass);width:50%;transition:width .7s ease}
+.map{margin-top:18px;border:1px solid var(--field-line);border-radius:4px;background:var(--field-deep);padding:6px}
+.map svg{display:block;width:100%;height:auto}
+.map figcaption{font-size:.78rem;color:var(--bone-dim);padding:4px 4px 2px;font-style:italic}
+.progress{display:flex;gap:5px;margin:0 0 14px}
+.progress i{flex:1;height:4px;background:var(--field-line);border-radius:2px}
+.progress i.done{background:var(--brass)}
+.progress i.now{background:var(--bone)}
+
+/* paper stage */
+.paper{background:var(--paper);color:var(--ink);border-radius:3px;padding:28px 32px 30px;box-shadow:0 0 0 1px var(--paper-edge),0 14px 40px rgba(0,0,0,.35)}
+.paper .dateline{font-style:italic;color:var(--ink-soft);margin-bottom:6px}
+.paper h2{font-size:clamp(2rem,4.6vw,3.3rem);margin-bottom:14px}
+.paper h3{font-size:1.45rem;margin:22px 0 8px}
+.paper p{max-width:62ch}
+.voices{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:16px 0 20px}
+.voice{border-left:3px solid var(--ink);padding:2px 0 2px 12px;font-size:.96rem}
+.voice b{display:block;font-style:italic;font-weight:400;color:var(--ink-soft)}
+.choices{display:grid;gap:10px}
+.choice{display:grid;grid-template-columns:auto 1fr;gap:4px 14px;text-align:left;background:#fff;border:1px solid var(--ink);border-radius:3px;padding:13px 16px;color:var(--ink)}
+.choice:hover{background:#fffbe9}
+.choice .k{grid-row:span 2;font-family:var(--display);font-size:1.7rem;line-height:1;color:var(--red);align-self:center}
+.choice b{font-size:1.06rem}
+.choice span{font-size:.93rem;color:var(--ink-soft)}
+.row{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-top:20px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0 4px}
+.chip{border:1px solid var(--ink);border-radius:999px;padding:2px 11px;font-size:.88rem;background:#fff}
+.chip.up{border-color:var(--good);color:var(--good)}
+.chip.down{border-color:var(--red);color:var(--red)}
+.real{border-top:3px double var(--ink);margin-top:20px;padding-top:4px}
+.match{display:inline-block;font-style:italic;padding:2px 10px;border-radius:3px;background:var(--ink);color:var(--paper);font-size:.9rem;margin-bottom:8px}
+.match.no{background:transparent;color:var(--ink-soft);border:1px dashed var(--ink-soft)}
+.news{margin-top:16px;padding:10px 14px;background:rgba(26,23,18,.06);font-size:.94rem}
+.news b{font-family:var(--display);font-weight:400;font-size:1.05rem}
+.news ul{margin:6px 0 0;padding-left:20px}
+.news li{margin-bottom:4px}
+
+/* redback press */
+.press{display:grid;grid-template-columns:1fr 1fr;gap:22px;align-items:center;margin:14px 0}
+.redback{aspect-ratio:2.3;background:var(--red);color:#fff;border-radius:3px;display:grid;place-items:center;text-align:center;position:relative;
+  background-image:repeating-radial-gradient(circle at 50% 50%,transparent 0 6px,rgba(255,255,255,.1) 6px 7px);
+  box-shadow:inset 0 0 0 5px var(--red),inset 0 0 0 6px rgba(255,255,255,.7);transition:transform .15s,filter .5s}
+.redback.stamp{transform:scale(.96) rotate(-1deg)}
+.redback small{display:block;font-style:italic}
+.redback strong{font-family:var(--display);font-weight:400;font-size:clamp(1.3rem,3.4vw,2.2rem);display:block;line-height:1.1}
+.stats dt{font-style:italic;color:var(--ink-soft);font-size:.9rem}
+.stats dd{margin:0 0 10px;font-family:var(--display);font-size:1.6rem;line-height:1.15}
+.spark{display:flex;align-items:flex-end;gap:3px;height:60px;margin-top:6px;border-bottom:1px solid var(--ink)}
+.spark i{flex:1;max-width:18px;background:var(--red);min-height:2px}
+
+/* bean */
+.beanbox{display:flex;gap:26px;align-items:center;flex-wrap:wrap;margin:16px 0}
+.jar{width:130px;height:150px;border:3px solid var(--ink);border-radius:14px 14px 40px 40px;position:relative;background:
+  radial-gradient(circle at 30% 70%,#fff 0 9px,transparent 10px),radial-gradient(circle at 55% 80%,#fff 0 9px,transparent 10px),
+  radial-gradient(circle at 72% 62%,#fff 0 9px,transparent 10px),radial-gradient(circle at 42% 55%,#111 0 9px,transparent 10px),
+  radial-gradient(circle at 62% 45%,#fff 0 9px,transparent 10px),radial-gradient(circle at 28% 45%,#fff 0 9px,transparent 10px),#d9c9a0}
+.bean{width:74px;height:54px;border-radius:50%;border:3px solid var(--ink);background:#fff;transform:scale(0);transition:transform .5s cubic-bezier(.2,1.6,.4,1)}
+.bean.show{transform:scale(1)}.bean.black{background:#111}
+
+/* canvases */
+canvas.play{width:100%;height:auto;display:block;border-radius:3px;background:#0b1730;touch-action:none;cursor:crosshair}
+canvas.sig{width:100%;height:auto;display:block;background:#fff;border:1px solid var(--ink);border-bottom:3px solid var(--ink);touch-action:none;cursor:crosshair}
+.hud{display:flex;justify-content:space-between;font-style:italic;margin:8px 0;flex-wrap:wrap;gap:8px}
+.doc{font-style:italic;border-left:3px solid var(--red);padding-left:14px;margin:12px 0 16px}
+
+/* vote */
+#vote .paper{max-width:820px;margin:0 auto;text-align:center}
+#vote .stmt{font-size:clamp(1.3rem,3vw,1.8rem);line-height:1.35;margin:18px auto 22px;max-width:28em;min-height:3.4em}
+.ayenay{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.vbtn{position:relative;overflow:hidden;border:2px solid var(--ink);background:#fff;border-radius:4px;padding:20px 10px;font-family:var(--display);font-size:1.8rem;color:var(--ink)}
+.vbtn small{display:block;font-family:var(--body);font-size:.9rem;font-style:italic;color:var(--ink-soft)}
+.vbtn i{position:absolute;left:0;bottom:0;height:6px;width:0;background:var(--red)}
+.vbtn.right{background:#e3f0e6;border-color:var(--good)}
+.vbtn.wrong{background:#f6dcd7;border-color:var(--red)}
+.vbtn *{position:relative}
+
+/* final */
+.cert{max-width:900px;margin:0 auto;text-align:center;border:10px double var(--ink);padding:30px 26px}
+.cert h2{font-size:clamp(2.2rem,6vw,4rem)}
+.cert .who{font-size:1.4rem;font-style:italic;margin:6px 0 14px}
+.cert .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:18px 0}
+.cert .grid div{border-top:2px solid var(--ink);padding-top:6px}
+.cert .grid b{display:block;font-family:var(--display);font-weight:400;font-size:1.6rem}
+.cert .grid span{font-size:.85rem;font-style:italic;color:var(--ink-soft)}
+.cert img{max-width:300px;width:60%;border-bottom:2px solid var(--ink);margin-top:8px}
+table.cmp{width:100%;border-collapse:collapse;margin-top:12px;font-size:.93rem;text-align:left}
+table.cmp th,table.cmp td{padding:7px 8px;border-bottom:1px solid var(--paper-edge);vertical-align:top}
+table.cmp th{font-style:italic;font-weight:400;color:var(--ink-soft)}
+.scrollx{overflow-x:auto}
+
+/* hands */
+#cursor{position:fixed;left:0;top:0;width:44px;height:44px;margin:-22px 0 0 -22px;pointer-events:none;z-index:50;display:none;transition:scale .12s}
+#cursor svg{width:100%;height:100%;fill:var(--brass-lite);stroke:#000;stroke-width:.6;filter:drop-shadow(0 2px 5px rgba(0,0,0,.6))}
+#cursor.pinch{scale:.6}#cursor.pinch svg{fill:var(--red)}
+#pip{position:fixed;left:12px;bottom:calc(12px + env(safe-area-inset-bottom,0px));width:150px;z-index:40;border:2px solid var(--brass);border-radius:6px;overflow:hidden;background:#000;display:none}
+#pip video,#pip canvas{display:block;width:100%;transform:scaleX(-1)}
+#pip canvas{position:absolute;inset:0;height:100%}
+#pip span{position:absolute;left:0;right:0;bottom:0;background:rgba(0,0,0,.6);color:#fff;font-size:.68rem;text-align:center;padding:1px}
+#toast{position:fixed;left:50%;top:14px;transform:translateX(-50%);background:var(--ink);color:var(--paper);padding:10px 18px;border-radius:4px;z-index:60;max-width:90vw;display:none;box-shadow:0 6px 20px rgba(0,0,0,.4)}
+
+@media (max-width:860px){
+  #intro.on{grid-template-columns:1fr;gap:10px}
+  .bigstar{max-width:200px;order:-1}
+  #game.on{grid-template-columns:1fr}
+  .ledger{position:static;display:grid;grid-template-columns:1fr 1fr;gap:0 16px}
+  .ledger .note{grid-column:span 2}
+  .ledger .map{grid-column:span 2;max-width:260px;justify-self:center}
+  .ledger{order:2}
+  .paper{padding:20px 18px 24px}
+  .voices,.press{grid-template-columns:1fr}
+  .cert .grid{grid-template-columns:1fr 1fr}
+  #pip{width:96px}
+}
+@media (prefers-reduced-motion:reduce){*{animation-duration:.01s !important;transition-duration:.01s !important}}
+</style>
+</head>
+<body>
+<header class="mast">
+  <div class="brand"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1.5l2.6 7.4h7.9l-6.4 4.7 2.4 7.6L12 16.6l-6.5 4.6 2.4-7.6L1.5 8.9h7.9z"/></svg>Republic of Texas</div>
+  <button class="tog" id="tSound" aria-pressed="true">Sound on</button>
+  <button class="tog" id="tHands" aria-pressed="false">Hand controls off</button>
+  <div class="when" id="when"></div>
+</header>
+
+<main>
+  <!-- INTRO -->
+  <section class="screen on" id="intro">
+    <div>
+      <h1>Ten Years a Nation</h1>
+      <p class="lede">It’s 1836. Texas just won its independence, and now it has to survive as its own country. You’re the president. The treasury is empty, the army is restless, and the whole world is watching what you do next.</p>
+      <div class="field-row">
+        <label class="name">Your name
+          <input id="pname" maxlength="28" autocomplete="off" placeholder="First name">
+        </label>
+        <button class="btn" id="begin">Take the oath of office</button>
+      </div>
+      <div class="field-row">
+        <button class="btn quiet" id="handsBtn">Turn on hand controls</button>
+        <span class="fine" id="handsMsg">Optional. Uses this device’s camera so you can point, pinch, raise your hand, and sign in the air. The video never leaves this device. Mouse and touch always work too.</span>
+      </div>
+      <details>
+        <summary>For teachers</summary>
+        <p>Covers TEKS 7.4(A) and 7.4(B): the Houston, Lamar, and Jones administrations, the Texas Rangers, Chief Bowles, William Goyens, Mary Maverick, José Antonio Navarro, the Córdova Rebellion, the Council House Fight, the Santa Fe Expedition, public debt, and the road to annexation. A full run takes 25 to 35 minutes. Students finish with a one-page record you can have them screenshot or download. Nothing is saved or sent anywhere.</p>
+        <p>Hand controls need the page opened directly (a Vercel link works). Inside a Google Sites embed the camera is usually blocked, and the page falls back to mouse and touch.</p>
+      </details>
+    </div>
+    <svg class="bigstar" viewBox="0 0 120 120" aria-hidden="true">
+      <circle cx="60" cy="60" r="56"/><circle cx="60" cy="60" r="52"/>
+      <path d="M60 12l11.2 33.6h35.4L78 66.6l10.9 34L60 79.8 31.1 100.6l10.9-34L13.4 45.6h35.4z"/>
+      <path class="fill" d="M60 12l11.2 33.6h35.4L78 66.6l10.9 34L60 79.8 31.1 100.6l10.9-34L13.4 45.6h35.4z"/>
+    </svg>
+  </section>
+
+  <!-- OATH -->
+  <section class="screen" id="oath">
+    <h2>Raise your right hand</h2>
+    <p id="oathHow"></p>
+    <div class="ring"><svg viewBox="0 0 160 160"><circle class="bg" cx="80" cy="80" r="70"/><circle class="fg" id="oathRing" cx="80" cy="80" r="70"/></svg><div class="hand" aria-hidden="true">✋</div></div>
+    <blockquote id="oathText"></blockquote>
+    <button class="btn" id="oathHold">Press and hold to swear the oath</button>
+    <p class="fine" style="margin:14px auto 0">Adapted from the oath in the Constitution of 1836.</p>
+  </section>
+
+  <!-- GAME -->
+  <section class="screen" id="game">
+    <aside class="ledger" aria-label="State of the Republic">
+      <div class="note"><i>The Republic owes</i><div class="amt" id="gDebt">$1.25 million</div><div class="vs" id="gDebtVs"></div></div>
+      <div class="meter"><div class="lab"><span>Security</span><span id="nSec"></span></div><div class="bar"><i id="bSec"></i></div></div>
+      <div class="meter"><div class="lab"><span>Standing in the world</span><span id="nStand"></span></div><div class="bar"><i id="bStand"></i></div></div>
+      <div class="meter"><div class="lab"><span>Support at home</span><span id="nSup"></span></div><div class="bar"><i id="bSup"></i></div></div>
+      <figure class="map" style="margin-left:0;margin-right:0;margin-bottom:0"><svg id="map" viewBox="0 0 256 350" role="img" aria-label="Map of the land claimed by the Republic of Texas"></svg><figcaption>Shaded: everything Texas claimed. Dashed: today’s border. The star is the capital.</figcaption></figure>
+    </aside>
+    <div>
+      <div class="progress" id="prog"></div>
+      <article class="paper" id="stage" aria-live="polite"></article>
+    </div>
+  </section>
+
+  <!-- VOTE -->
+  <section class="screen" id="vote"><article class="paper" id="voteStage"></article></section>
+
+  <!-- FINAL -->
+  <section class="screen" id="final"><article class="paper" id="finalStage"></article></section>
+</main>
+
+<div id="cursor"><svg viewBox="0 0 24 24"><path d="M12 1.5l2.6 7.4h7.9l-6.4 4.7 2.4 7.6L12 16.6l-6.5 4.6 2.4-7.6L1.5 8.9h7.9z"/></svg></div>
+<div id="pip"><video id="cam" playsinline muted></video><canvas id="camOv" width="160" height="120"></canvas><span>stays on this device</span></div>
+<div id="toast" role="status"></div>
+
+<script>
+"use strict";
+const $=s=>document.querySelector(s);
+const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+const STAR='M12 1.5l2.6 7.4h7.9l-6.4 4.7 2.4 7.6L12 16.6l-6.5 4.6 2.4-7.6L1.5 8.9h7.9z';
+const S={name:'',ch:0,step:0,debt:1.25,sec:50,stand:35,sup:60,picks:[],vote:0,archives:null,bean:null,sig:null,muted:false};
+
+/* ---------- content ---------- */
+const HIST_DEBT=[1.5,2.0,2.5,5.0,5.5,7.0,7.5,10.0];
+const CH=[
+{year:'1836',pres:'Sam Houston, first term',where:'Columbia',cap:'columbia',pins:['columbia'],steps:['brief','reveal'],
+ title:'The prisoner',
+ brief:`<p>You have just been sworn in at Columbia, a muddy town of a few wooden buildings. Your new nation has no money and an army it can’t pay. It also has one very famous prisoner: General Antonio López de Santa Anna, captured at San Jacinto.</p><p>He signed the Treaties of Velasco, promising that Texas was free. But Mexico’s government says a prisoner’s signature means nothing. What do you do with him?</p>`,
+ voices:[['Many soldiers say','He ordered the killings at the Alamo and Goliad. He should hang for it.'],['Cautious leaders say','A dead Santa Anna can’t keep any promises, and other nations are watching how Texas behaves.']],
+ choices:[
+  {t:'Put him on trial and execute him',d:'Give the army the justice it is demanding.',fx:{debt:.25,sup:10,stand:-15,sec:-5},r:'The army cheers. Newspapers in the United States and Europe call Texas a land of revenge, and Mexico has a new reason to fight.'},
+  {t:'Keep him locked up in Texas',d:'Hold him as a bargaining chip for as long as it takes.',fx:{debt:.35,stand:-5,sec:-3},r:'Guarding him costs money you don’t have, and angry soldiers keep plotting to grab him. Mexico still refuses to bargain.'},
+  {t:'Send him to Washington, D.C., then home',d:'Let him meet U.S. President Andrew Jackson and repeat his promises.',fx:{debt:.25,sup:-8,stand:12,sec:3},r:'Many Texans are furious that he walks free. But the world sees a calm, lawful new nation.'}],
+ hist:2,
+ real:`<p>Houston sent Santa Anna to Washington, D.C. He met President Jackson in January 1837 and sailed home to Mexico that February. Mexico never honored the Treaties of Velasco.</p><p>Houston’s calm paid off in another way. On March 3, 1837, the United States officially recognized Texas as an independent nation.</p>`,
+ news:['In the first election, Texans vote 3,277 to 91 in favor of joining the United States. Nobody knows yet if the U.S. will say yes.','Stephen F. Austin, the new Secretary of State, dies on December 27, 1836.']},
+
+{year:'1837',pres:'Sam Houston, first term',where:'Houston',cap:'houston',pins:['houston'],steps:['brief','reveal'],
+ title:'The restless army',
+ brief:`<p>The capital has moved to a brand-new town named after you-know-who. Meanwhile the army has grown. Volunteers from the United States keep arriving, months after the fighting ended. They are bored and unpaid.</p><p>Their commander, Felix Huston, wants to march south and attack Matamoros, Mexico. Feeding around 2,000 soldiers is draining a treasury that is already empty.</p>`,
+ voices:[['The volunteers say','We came to fight. Lead us into Mexico and we’ll finish this war for good.'],['Your treasurer says','Every week this army sits in camp, the Republic goes deeper into debt.']],
+ choices:[
+  {t:'March on Matamoros',d:'Attack Mexico before it can attack you.',fx:{debt:1.6,sec:-10,sup:5,stand:-8},r:'The march costs a fortune. Supplies run out long before the Rio Grande, and Mexico begins gathering a new army.'},
+  {t:'Keep the whole army in camp',d:'Stay ready in case Mexico invades.',fx:{debt:1.2,sec:5},r:'Texas stays well guarded, but the bills pile up fast and the soldiers grow harder to control.'},
+  {t:'Send most of the army home',d:'Rely on local militia and small companies of Texas Rangers instead.',fx:{debt:.5,sec:-3,sup:-4,stand:3},r:'You save a great deal of money. The frontier is thinly guarded now, and some call you weak.'}],
+ hist:2,
+ real:`<p>In May 1837, Houston sent all but about 600 soldiers home on leave. Defending the frontier fell to militia and small, fast-moving companies of Texas Rangers, which cost far less than an army.</p><p>That August, Texas formally asked to join the United States. President Martin Van Buren said no. He feared war with Mexico, and many Americans did not want to add another slave state. Texas took back its offer in 1838.</p>`,
+ news:['The Constitution of 1836 makes slavery legal in the Republic. Free Black Texans need permission from Congress to stay.','France will recognize Texas in 1839. Great Britain and the Netherlands follow in 1840.']},
+
+{year:'1839',pres:'Mirabeau B. Lamar',where:'Houston',cap:'houston',pins:['nacogdoches','neches'],steps:['brief','reveal'],
+ title:'The promise',
+ brief:`<p>A president can’t serve two terms in a row, so a new man sits in your chair: Mirabeau B. Lamar. He sees things very differently from Houston.</p><p>In 1836, Houston signed a treaty promising the Cherokee, led by Chief Bowles, their land in East Texas. The Senate threw that treaty out. Then came the Córdova Rebellion of 1838, when Vicente Córdova and others around Nacogdoches rose up against the Republic. Settlers suspect the Cherokee helped. Chief Bowles says they did not. Settlers also want the land.</p>`,
+ voices:[['Houston’s side says','Texas gave its word. William Goyens, a free Black businessman from Nacogdoches, helped carry those peace talks as an interpreter.'],['Lamar’s side says','The Senate never approved that treaty. The Cherokee have no legal claim and must leave Texas.']],
+ choices:[
+  {t:'Honor the treaty',d:'Give the Cherokee legal title to their land.',fx:{debt:.1,sec:8,sup:-12,stand:4},r:'East Texas stays at peace. Land-hungry settlers and much of Congress turn against you.'},
+  {t:'Order the Cherokee to leave Texas',d:'Offer to pay for their homes and crops. Send the army if they refuse.',fx:{debt:.5,sec:-6,sup:8,stand:-3},r:'Settlers cheer. Talks break down and the army marches.'},
+  {t:'Decide nothing for now',d:'No treaty, no removal. Hope the tension fades.',fx:{debt:.2,sec:-4,sup:-4},r:'Nobody is satisfied. Settlers keep moving onto Cherokee land, and fights break out without you.'}],
+ hist:1,
+ real:`<p>Lamar ordered the Cherokee out, offering to pay only for what they had built. Talks failed. At the Battle of the Neches on July 15 and 16, 1839, the Texas army defeated the Cherokee and their allies.</p><p>Chief Bowles, more than 80 years old, was killed on the field. He was carrying a sword that Sam Houston had given him. The survivors were forced north out of Texas, losing their homes and farms.</p>`,
+ news:['Houston is furious about the war and says so loudly.','Lamar’s wars with Native nations cost the Republic about $2.5 million during his term.']},
+
+{year:'1839',pres:'Mirabeau B. Lamar',where:'Houston',cap:'houston',pins:['houston'],steps:['brief','reveal','press'],
+ title:'The empty treasury',
+ brief:`<p>Lamar dreams big. He wants a navy, forts, and a Texas that reaches the Pacific Ocean. He also wants schools: in 1839 Congress sets aside public land in every county for schools, and more for two universities. People will call him the Father of Texas Education.</p><p>Dreams cost money. The treasury is empty and the debt is climbing. How will you pay for all this?</p>`,
+ voices:[['Lamar’s supporters say','A great nation spends like one. Print the money now. The land will pay for it later.'],['Houston’s supporters say','You can’t spend what you don’t have. Cut everything.']],
+ choices:[
+  {t:'Print paper money',d:'Issue new bills, promising they’ll be worth something later.',fx:{debt:2.5,sup:-6,stand:-6},r:'You can pay your bills today. Shopkeepers start asking how much those bills are really worth.'},
+  {t:'Raise taxes and cut spending',d:'Shrink the government to what Texas can afford.',fx:{debt:.6,sup:-12,sec:-6},r:'Debt slows down. So do forts, ships, and salaries. Texans have very little cash to tax, and they resent it.'},
+  {t:'Borrow $5 million from Europe',d:'Send agents to bankers in France and Britain.',fx:{debt:1.5,stand:-3,sup:-3},r:'The bankers look at Texas’s debts and say no. You spend the money anyway and hope.'}],
+ hist:0,
+ real:`<p>Lamar did all of the spending and tried both other ideas too. The $5 million loan never came. So Texas printed paper money called redbacks, named for the red ink on the back.</p><p>There was no gold or silver behind them. The more the Republic printed, the less each one was worth. By 1842 a redback dollar bought about two cents’ worth of goods. The debt grew from about $2 million to about $7 million.</p>`,
+ news:[]},
+
+{year:'1840',pres:'Mirabeau B. Lamar',where:'Austin',cap:'austin',pins:['austin','sanantonio','linnville'],steps:['brief','reveal'],
+ title:'A capital on the edge',
+ brief:`<p>Where should the government live? Houston the city is muddy, hot, and far to the east. Lamar wants a grand new capital in the west, at a tiny settlement called Waterloo on the Colorado River. He believes Texas will keep growing westward.</p><p>Critics point out that Waterloo sits on the very edge of settled Texas, deep in Comanche country and a long way from help.</p>`,
+ voices:[['Western settlers say','Put the capital out here and settlers, roads, and soldiers will follow it.'],['Houston says','It is a dangerous, lonely spot for a government and its records.']],
+ choices:[
+  {t:'Stay in Houston',d:'It’s safer and it’s already built.',fx:{debt:.1,sup:-3,sec:3},r:'You save money. Westerners complain the government has forgotten them.'},
+  {t:'Build a new capital at Waterloo',d:'Plant the flag on the frontier.',fx:{debt:.5,sec:-5,sup:4,stand:2},r:'A new city rises fast. Guarding it is expensive, and it sits right in the path of raids.'},
+  {t:'Pick a town in the middle',d:'Washington-on-the-Brazos, where independence was declared.',fx:{debt:.2},r:'A sensible compromise that excites nobody.'}],
+ hist:1,
+ real:`<p>In 1839 the government packed its papers into wagons and moved to Waterloo, which was renamed Austin.</p><p>The frontier stayed dangerous. In March 1840, Comanche leaders came to San Antonio for peace talks. Texas officials tried to hold them hostage until all captives were returned, and the meeting exploded into the Council House Fight. Dozens of Comanche people and several Texans died. Mary Maverick, who lived nearby, saw it and later wrote down what happened.</p><p>That summer the Comanche struck back with a huge raid that burned the port of Linnville. Rangers and volunteers caught up with them at the Battle of Plum Creek.</p>`,
+ news:['Mary Maverick’s memoirs become one of the best eyewitness records of life in the Republic.']},
+
+{year:'1841',pres:'Mirabeau B. Lamar',where:'Austin',cap:'austin',pins:['santafe'],route:true,steps:['brief','reveal'],
+ title:'The road to Santa Fe',
+ brief:`<p>Look at the map. Texas claims the Rio Grande all the way to its source, which puts the rich trading town of Santa Fe inside Texas. On paper.</p><p>In real life, Santa Fe is governed by Mexico and lies 700 miles away across plains no Texan has mapped. If its people agreed to join Texas, the trade money could rescue the treasury. Congress has refused to pay for an expedition.</p>`,
+ voices:[['Lamar says','The people of Santa Fe will welcome us, and their trade will make Texas rich.'],['Congress says','We can’t afford it, and nobody has asked Santa Fe what it wants.']],
+ choices:[
+  {t:'Send a large expedition',d:'Soldiers, merchants, and wagons of goods, without Congress’s approval.',fx:{debt:1.5,stand:-10,sup:-10,sec:-5},r:'Over 300 people head into the unknown with no good map.'},
+  {t:'Send a few messengers',d:'A letter of friendship and an invitation to trade.',fx:{debt:.3,sup:-2},r:'Cheap and safe. Santa Fe’s governor ignores the letter.'},
+  {t:'Leave Santa Fe alone',d:'Focus on the Texas you actually control.',fx:{debt:.2,sup:-3,sec:2},r:'Lamar’s supporters call it a lost chance. Your soldiers stay home, where they’re needed.'}],
+ hist:0,
+ real:`<p>Lamar sent the Santa Fe Expedition in June 1841: about 320 soldiers and merchants. One of its leaders was José Antonio Navarro, a signer of the Texas Declaration of Independence.</p><p>They got lost, ran out of food and water, and surrendered to Mexican troops without firing a shot. The prisoners were marched about 2,000 miles to Mexico City. Most were freed in 1842. Navarro was kept in prison until he escaped in 1845.</p><p>The expedition cost money Texas didn’t have and made Mexico angrier than ever.</p>`,
+ news:['Voters have had enough of debt. In late 1841 they bring Sam Houston back.']},
+
+{year:'1842',pres:'Sam Houston, second term',where:'Austin',cap:'washington',pins:['sanantonio','mier','austin','washington'],steps:['brief','reveal','bean','cannon'],
+ title:'Invasion',
+ brief:`<p>Houston is back and cutting every cost he can. Then Mexico strikes. In March 1842, General Rafael Vásquez captures San Antonio and leaves. In September, General Adrián Woll captures it again and marches off with prisoners.</p><p>Texans are furious and want revenge. The Republic can barely pay its Rangers.</p>`,
+ voices:[['Angry Texans say','They took San Antonio twice. Invade Mexico and make them stop.'],['Houston says','A big war would bankrupt us. We need peace and time.']],
+ choices:[
+  {t:'Launch a full invasion of Mexico',d:'Raise a large army and cross the Rio Grande.',fx:{debt:2,sec:-10,sup:6,stand:-8},r:'Volunteers rush to sign up. Paying and feeding them wrecks what’s left of the treasury.'},
+  {t:'Send a small force to the border',d:'Show strength at the Rio Grande, then come home.',fx:{debt:.5,sec:2,sup:-4},r:'It’s a careful middle path. Some of your soldiers think it’s far too careful.'},
+  {t:'Stay home and defend',d:'Rangers and militia only. No crossing the river.',fx:{debt:.3,sec:-3,sup:-10,stand:2},r:'You save money. Many Texans call it cowardice.'}],
+ hist:1,
+ real:`<p>Houston sent the Somervell Expedition to the Rio Grande. After taking two border towns, its commander ordered everyone home. About 300 men refused. They crossed the river and attacked the town of Mier, where a much larger Mexican force made them surrender.</p><p>The prisoners later escaped, and 176 were recaptured. As punishment, Santa Anna ordered that one in every ten be put to death.</p>`,
+ news:['Juan Seguín, a hero of San Jacinto and mayor of San Antonio, flees to Mexico in 1842 after newcomers threaten him.','In 1843 Houston signs the Treaty of Bird’s Fort, making peace with several Native nations.','Jack Hays and his Texas Rangers patrol the frontier for far less than an army costs.']},
+
+{year:'1845',pres:'Anson Jones',where:'Washington-on-the-Brazos',cap:'washington',pins:['washington','austin'],steps:['brief','sign','reveal'],
+ title:'Two offers',
+ brief:`<p>The last president of the Republic is Dr. Anson Jones. The debt is near $10 million. In the United States, James K. Polk has just won the presidency by promising to bring Texas in.</p><p>Two offers are sitting on your desk.</p><p><b>From the United States:</b> join as the 28th state. Texas keeps its public land and must pay its own debts.</p><p><b>From Mexico,</b> pushed by Great Britain and France: Mexico will finally recognize Texas as independent, if Texas promises never to join the United States.</p>`,
+ voices:[['Most Texans say','We wanted to join the United States back in 1836. Sign it.'],['A few say','We fought for our own country. With peace at last, Texas could stand alone.']],
+ choices:[
+  {t:'Join the United States',d:'Accept annexation and become a state.',fx:{debt:2.5,sec:15,sup:12},r:'You choose the Stars and Stripes.',annex:true},
+  {t:'Stay an independent nation',d:'Accept Mexico’s offer of peace and recognition.',fx:{debt:2.5,stand:12,sup:-15},r:'You choose the Lone Star alone.',annex:false}],
+ hist:0,
+ real:`<p>Jones put both offers in front of the people. It wasn’t close. The Convention of 1845 voted 55 to 1 for annexation and wrote a state constitution. José Antonio Navarro, home from prison, was its only Tejano delegate. Voters approved in October.</p><p>President Polk signed the act on December 29, 1845, making Texas the 28th state. On February 19, 1846, Jones lowered the Lone Star flag in Austin and declared, “The Republic of Texas is no more.”</p><p>Mexico never accepted the annexation. War between the United States and Mexico began within months.</p>`,
+ news:['German immigrants found New Braunfels in 1845, part of a wave of newcomers changing who Texans are.','J. Pinckney Henderson becomes the first governor of the State of Texas.']}
+];
+
+const VOTES=[
+ ['Sam Houston served as president of the Republic twice.',true,'He served 1836 to 1838 and again 1841 to 1844.'],
+ ['Mirabeau Lamar wanted Texas to join the United States as quickly as possible.',false,'Lamar wanted Texas to stay independent and grow all the way to the Pacific.'],
+ ['Redbacks lost their value because the Republic printed more money than it could back up.',true,'With no gold or silver behind them, more printing meant each bill was worth less.'],
+ ['The Santa Fe Expedition added New Mexico to Texas.',false,'The expedition got lost and surrendered without a fight.'],
+ ['The Archive War started when Houston tried to move the government’s records out of Austin.',true,'Angelina Eberly fired a cannon to warn the town.'],
+ ['Texas became the 28th state on December 29, 1845.',true,'President Polk signed the act that day.']
+];
+
+/* ---------- map ---------- */
+const PR=([lon,lat])=>[+((lon+108.6)*16.6).toFixed(1),+((42.9-lat)*20).toFixed(1)];
+const PLACES={columbia:['Columbia',-95.65,29.14],houston:['Houston',-95.37,29.76],austin:['Austin',-97.74,30.27],sanantonio:['San Antonio',-98.49,29.42],
+ nacogdoches:['Nacogdoches',-94.66,31.6],neches:['Battle of the Neches',-95.6,32.35],santafe:['Santa Fe',-105.94,35.69],washington:['Washington-on-the-Brazos',-96.15,30.33],
+ mier:['Mier',-99.15,26.43],linnville:['Linnville',-96.6,28.62]};
+const CLAIM=[[-97.15,25.96],[-97.7,25.9],[-98.3,26.15],[-99.1,26.4],[-99.5,27.5],[-100.3,28.3],[-100.9,29.3],[-101.4,29.77],[-102.3,29.88],[-102.8,29.3],[-103.15,28.98],[-103.8,29.25],[-104.5,29.65],[-104.9,30.6],[-105.6,31.08],[-106.5,31.76],
+ [-106.6,32],[-107,33],[-106.9,34],[-106.65,35.1],[-106.1,35.9],[-105.7,36.5],[-105.75,37.2],[-106.3,37.7],[-107.3,37.8],[-107.3,42],[-106.3,42],[-106.3,39.3],[-105.2,38.45],[-104.6,38.27],[-103.5,38.07],[-102,38.05],[-100,37.75],
+ [-100,34.56],[-99.2,34.3],[-98.5,34.1],[-97.9,33.9],[-97.2,33.75],[-96.4,33.8],[-95.5,33.88],[-94.48,33.64],[-94.04,33.55],[-94.04,32],[-93.8,31.5],[-93.55,31],[-93.7,30.4],[-93.84,29.7],[-94.7,29.35],[-95.3,28.95],[-96.4,28.4],[-97.1,27.8],[-97.38,27]];
+const TODAY=[[-106.6,32],[-103.06,32],[-103.04,36.5],[-100,36.5]];
+const ROUTE=[[-97.74,30.27],[-97.9,31.8],[-98.6,33.6],[-101.5,34.7],[-104.3,35.2],[-105.94,35.69]];
+const pts=a=>a.map(p=>PR(p).join(',')).join(' ');
+function drawMap(){
+  const c=CH[Math.min(S.ch,CH.length-1)];
+  let h=`<polygon points="${pts(CLAIM)}" fill="#27406e" stroke="#e7c979" stroke-width=".8" stroke-linejoin="round"/>
+  <polyline points="${pts(TODAY)}" fill="none" stroke="#efebdd" stroke-width=".8" stroke-dasharray="3 3"/>
+  <text font-size="6.5" fill="#b9c2d6" font-style="italic" font-family="Georgia,serif" text-anchor="middle"><tspan x="60" y="180">claimed by Texas,</tspan><tspan x="60" y="188">run by Mexico</tspan></text>`;
+  if(c.route) h+=`<polyline points="${pts(ROUTE)}" fill="none" stroke="#e25a44" stroke-width="1.4" stroke-dasharray="4 3"/>`;
+  const seen=new Set();
+  CH.slice(0,S.ch+1).forEach(x=>x.pins.forEach(p=>seen.add(p)));
+  seen.forEach(k=>{const[x,y]=PR([PLACES[k][1],PLACES[k][2]]);const now=c.pins.includes(k);
+    if(k!==c.cap) h+=`<circle cx="${x}" cy="${y}" r="${now?3:1.8}" fill="${now?'#e25a44':'#b9c2d6'}"/>`;
+    if(now&&k!==c.cap){const left=x>150;h+=`<text x="${left?x-5:x+5}" y="${y+2.5}" font-size="7" fill="#efebdd" font-family="Georgia,serif" text-anchor="${left?'end':'start'}">${PLACES[k][0]}</text>`;}});
+  const[cx,cy]=PR([PLACES[c.cap][1],PLACES[c.cap][2]]);
+  h+=`<g transform="translate(${cx-7},${cy-7}) scale(.58)"><path d="${STAR}" fill="#e7c979" stroke="#0b1b36" stroke-width="1"/></g>
+  <text x="${Math.min(cx,205)}" y="${cy-10}" font-size="7.5" fill="#e7c979" font-family="Georgia,serif" text-anchor="middle">${PLACES[c.cap][0]}</text>`;
+  $('#map').innerHTML=h;
+}
+
+/* ---------- sound & voice ---------- */
+let AC=null;
+function ac(){ if(S.muted) return null; try{ if(!AC) AC=new (window.AudioContext||window.webkitAudioContext)(); if(AC.state==='suspended') AC.resume(); return AC; }catch(e){ return null; } }
+function tone(f,dur,type,vol,delay){ const a=ac(); if(!a) return; const o=a.createOscillator(),g=a.createGain(),t=a.currentTime+(delay||0);
+  o.type=type||'sine'; o.frequency.setValueAtTime(f,t); g.gain.setValueAtTime(vol||.12,t); g.gain.exponentialRampToValueAtTime(.0001,t+dur); o.connect(g).connect(a.destination); o.start(t); o.stop(t+dur+.02); }
+function noise(dur,vol,freq,delay){ const a=ac(); if(!a) return; const n=Math.floor(a.sampleRate*dur),b=a.createBuffer(1,n,a.sampleRate),d=b.getChannelData(0);
+  for(let i=0;i<n;i++) d[i]=(Math.random()*2-1)*(1-i/n); const s=a.createBufferSource(),g=a.createGain(),f=a.createBiquadFilter(); f.type='lowpass'; f.frequency.value=freq||800;
+  s.buffer=b; g.gain.value=vol||.3; s.connect(f).connect(g).connect(a.destination); s.start(a.currentTime+(delay||0)); }
+const sfx={
+  tick(){noise(.06,.15,3000)}, boom(){noise(.9,.9,220);tone(60,.7,'sine',.5)}, coin(){tone(1320,.12,'triangle',.1);tone(1760,.2,'triangle',.08,.07)},
+  thud(){noise(.18,.5,400);tone(90,.2,'sine',.3)}, bad(){tone(196,.3,'sawtooth',.06);tone(147,.45,'sawtooth',.06,.15)},
+  good(){tone(523,.15,'triangle',.1);tone(659,.15,'triangle',.1,.12);tone(784,.3,'triangle',.1,.24)},
+  drum(){for(let i=0;i<10;i++) noise(.07,.25,1200,i*.07)}, fanfare(){[392,523,659,784,659,784].forEach((f,i)=>tone(f,.28,'triangle',.11,i*.16))},
+  bell(){tone(880,1.2,'sine',.12);tone(1320,.9,'sine',.05)}
+};
+function speak(el){ try{ if(speechSynthesis.speaking){speechSynthesis.cancel();return;} const u=new SpeechSynthesisUtterance(el.innerText.replace(/\s+/g,' ')); u.rate=.95; speechSynthesis.speak(u);}catch(e){ toast('This browser can’t read aloud.'); } }
+function hush(){ try{speechSynthesis.cancel()}catch(e){} }
+let toastT; function toast(m){ const t=$('#toast'); t.textContent=m; t.style.display='block'; clearTimeout(toastT); toastT=setTimeout(()=>t.style.display='none',4200); }
+
+/* ---------- hand tracking ---------- */
+const MPV='0.10.14';
+const H={on:false,present:false,x:0,y:0,pinch:false,gesture:'none',lastClick:0};
+let landmarker=null,lastVT=-1,hover=null;
+const dist=(a,b)=>Math.hypot(a.x-b.x,a.y-b.y);
+async function startHands(){
+  if(H.on) return true;
+  const msg=$('#handsMsg'); let step='camera';
+  msg.textContent='Loading hand tracking. This takes a few seconds the first time.';
+  try{
+    if(!window.isSecureContext||!navigator.mediaDevices||!navigator.mediaDevices.getUserMedia) throw Object.assign(new Error('insecure'),{name:'Insecure'});
+    const stream=await navigator.mediaDevices.getUserMedia({video:{width:640,height:480,facingMode:'user'},audio:false});
+    const v=$('#cam'); v.srcObject=stream; await v.play();
+    step='library'; let vis,base=`https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@${MPV}`;
+    try{ vis=await import(base+'/vision_bundle.mjs'); }catch(e){ base=`https://unpkg.com/@mediapipe/tasks-vision@${MPV}`; vis=await import(base+'/vision_bundle.mjs'); }
+    step='model';
+    const fs=await vis.FilesetResolver.forVisionTasks(base+'/wasm');
+    const opts=d=>({baseOptions:{modelAssetPath:'https://storage.googleapis.com/mediapipe-models/hand_landmarker/hand_landmarker/float16/1/hand_landmarker.task',delegate:d},runningMode:'VIDEO',numHands:1});
+    try{ landmarker=await vis.HandLandmarker.createFromOptions(fs,opts('GPU')); }catch(e){ landmarker=await vis.HandLandmarker.createFromOptions(fs,opts('CPU')); }
+    H.on=true; $('#pip').style.display='block';
+    $('#tHands').setAttribute('aria-pressed','true'); $('#tHands').textContent='Hand controls on';
+    $('#handsBtn').textContent='Hand controls are on';
+    msg.textContent='Move your hand to steer the star. Pinch your thumb and pointer finger together to click. Hold your hand near the top or bottom edge to scroll.';
+    requestAnimationFrame(handLoop); return true;
+  }catch(e){
+    stopHands();
+    const n=(e&&e.name)||'Error'; let why;
+    if(step==='camera'){
+      why=n==='Insecure'?'The camera only works on a secure (https) web address.'
+        :n==='NotFoundError'||n==='OverconstrainedError'?'No camera was found on this device.'
+        :n==='NotReadableError'?'The camera is being used by another tab or app. Close it and try again.'
+        :'The camera was blocked. If this page is inside a preview or an embedded frame, open it at its own web address. Otherwise click the camera icon in the address bar and choose Allow.';
+    } else if(step==='library') why='The camera works, but this network blocked the hand-tracking code (cdn.jsdelivr.net and unpkg.com).';
+    else why='The camera works, but the hand-tracking model could not load (storage.googleapis.com may be blocked on this network).';
+    msg.textContent=why+' Mouse and touch still work for everything. [step: '+step+', '+n+']';
+    toast('Hand controls couldn’t start. See the note under the button.'); return false;
+  }
+}
+function stopHands(){
+  H.on=false; H.present=false; H.pinch=false; H.gesture='none';
+  const v=$('#cam'); if(v.srcObject){ v.srcObject.getTracks().forEach(t=>t.stop()); v.srcObject=null; }
+  $('#pip').style.display='none'; $('#cursor').style.display='none';
+  $('#tHands').setAttribute('aria-pressed','false'); $('#tHands').textContent='Hand controls off'; $('#handsBtn').textContent='Turn on hand controls';
+  if(hover){hover.classList.remove('hh');hover=null;}
+}
+function handLoop(){
+  if(!H.on) return;
+  const v=$('#cam');
+  if(v.readyState>=2 && v.currentTime!==lastVT){ lastVT=v.currentTime;
+    try{ const r=landmarker.detectForVideo(v,performance.now()); handUpdate(r.landmarks&&r.landmarks[0]); }catch(e){}
+  }
+  requestAnimationFrame(handLoop);
+}
+function handUpdate(lm){
+  const cur=$('#cursor'),ov=$('#camOv'),g=ov.getContext('2d'); g.clearRect(0,0,160,120);
+  if(!lm){ H.present=false; H.pinch=false; H.gesture='none'; cur.style.display='none'; if(hover){hover.classList.remove('hh');hover=null;} return; }
+  g.fillStyle='#e7c979'; lm.forEach(p=>{g.beginPath();g.arc(p.x*160,p.y*120,2.2,0,7);g.fill();});
+  const size=dist(lm[0],lm[9])||.001, pr=dist(lm[4],lm[8])/size, was=H.pinch;
+  if(!H.pinch&&pr<.33) H.pinch=true; else if(H.pinch&&pr>.52) H.pinch=false;
+  const mx=(lm[4].x+lm[8].x)/2,my=(lm[4].y+lm[8].y)/2;
+  const tx=clamp(((1-mx)-.15)/.7,0,1)*innerWidth, ty=clamp((my-.15)/.7,0,1)*innerHeight;
+  if(!H.present){H.x=tx;H.y=ty;} else {H.x+=(tx-H.x)*.4; H.y+=(ty-H.y)*.4;}
+  H.present=true;
+  // gestures
+  const ext=(t,p)=>dist(lm[t],lm[0])>dist(lm[p],lm[0])*1.15, curl=(t,p)=>dist(lm[t],lm[0])<dist(lm[p],lm[0])*1.02;
+  const F=[[8,6],[12,10],[16,14],[20,18]];
+  const ys=lm.map(p=>p.y),top=Math.min(...ys),bot=Math.max(...ys);
+  let gs='none';
+  if(F.every(f=>ext(...f)) && lm[12].y<lm[0].y-size*.6 && !H.pinch) gs='palm';
+  else if(F.every(f=>curl(...f))){
+    if(lm[4].y<=top+.005 && lm[4].y<lm[2].y-size*.3) gs='up';
+    else if(lm[4].y>=bot-.005 && lm[4].y>lm[2].y+size*.3) gs='down';
+  }
+  H.gesture=gs;
+  cur.style.display='block'; cur.style.transform=`translate(${H.x}px,${H.y}px)`; cur.classList.toggle('pinch',H.pinch);
+  if(H.y>innerHeight*.94) scrollBy(0,12); else if(H.y<innerHeight*.06) scrollBy(0,-12);
+  const el=document.elementFromPoint(H.x,H.y), t=el&&el.closest('button,summary,canvas.play');
+  if(t!==hover){ if(hover) hover.classList.remove('hh'); hover=(t&&t.tagName!=='CANVAS')?t:null; if(hover) hover.classList.add('hh'); }
+  if(H.pinch&&!was&&performance.now()-H.lastClick>350){ H.lastClick=performance.now();
+    if(t&&!t.disabled){ sfx.tick(); t.dispatchEvent(new MouseEvent('click',{bubbles:true,cancelable:true,clientX:H.x,clientY:H.y,view:window})); }
+  }
+}
+
+/* ---------- screens ---------- */
+function show(id){ document.querySelectorAll('.screen').forEach(s=>s.classList.toggle('on',s.id===id)); scrollTo(0,0); hush(); }
+function setWhen(){ const c=CH[S.ch]; $('#when').innerHTML=c?`<b>${c.year}</b>In the president’s chair: ${c.pres}`:''; }
+const fmtDebt=d=>'$'+(Math.round(d*100)/100).toFixed(2).replace(/0$/,'').replace(/\.0$/,'')+' million';
+function ledger(){
+  $('#gDebt').textContent=fmtDebt(S.debt);
+  const hi=Math.min(S.picks.length,CH.length)-1;
+  $('#gDebtVs').textContent=hi>=0?`In real history at this point: about ${fmtDebt(HIST_DEBT[hi])}`:'Left over from the Revolution';
+  [['Sec','sec'],['Stand','stand'],['Sup','sup']].forEach(([a,k])=>{ $('#b'+a).style.width=S[k]+'%'; $('#n'+a).textContent=S[k]<34?'shaky':S[k]<67?'steady':'strong'; });
+  $('#prog').innerHTML=CH.map((_,i)=>`<i class="${i<S.ch?'done':i===S.ch?'now':''}"></i>`).join('');
+  drawMap();
+}
+function apply(fx){ S.debt=Math.max(0,+(S.debt+(fx.debt||0)).toFixed(2)); ['sec','stand','sup'].forEach(k=>S[k]=clamp(S[k]+(fx[k]||0),0,100)); }
+function chips(fx){ const L={sec:'Security',stand:'Standing in the world',sup:'Support at home'}; let h='';
+  if(fx.debt) h+=`<span class="chip down">Debt up ${fmtDebt(fx.debt)}</span>`;
+  for(const k in L) if(fx[k]) h+=`<span class="chip ${fx[k]>0?'up':'down'}">${L[k]} ${fx[k]>0?'up':'down'}</span>`;
+  return `<div class="chips">${h}</div>`; }
+
+/* intro + oath */
+$('#begin').onclick=()=>{ S.name=($('#pname').value||'').trim().replace(/[<>&]/g,'')||'the President'; ac(); sfx.drum(); startOath(); };
+$('#handsBtn').onclick=()=>{ H.on?stopHands():startHands(); };
+$('#tHands').onclick=()=>{ H.on?stopHands():startHands(); };
+$('#tSound').onclick=e=>{ S.muted=!S.muted; e.currentTarget.setAttribute('aria-pressed',String(!S.muted)); e.currentTarget.textContent=S.muted?'Sound off':'Sound on'; if(S.muted) hush(); };
+
+let oathHeld=false;
+function startOath(){
+  show('oath'); $('#when').innerHTML='<b>1836</b>Columbia, Texas';
+  $('#oathText').textContent=`“I, ${S.name}, do solemnly swear that I will faithfully carry out the duties of President of the Republic of Texas, and will to the best of my ability preserve, protect, and defend its Constitution.”`;
+  $('#oathHow').textContent=H.on?'Hold your open hand up to the camera until the ring fills. Or press and hold the button.':'Press and hold the button until the ring fills.';
+  let p=0,last=performance.now(); const ring=$('#oathRing');
+  (function loop(now){ if(!$('#oath').classList.contains('on')) return;
+    const dt=(now-last)/1000; last=now; const act=oathHeld||(H.on&&H.gesture==='palm');
+    p=clamp(p+(act?dt/2.6:-dt/1.2),0,1); ring.style.strokeDashoffset=440*(1-p);
+    if(p>=1){ sfx.fanfare(); oathHeld=false; startGame(); return; }
+    requestAnimationFrame(loop); })(last);
+}
+const ob=$('#oathHold');
+['pointerdown','keydown'].forEach(ev=>ob.addEventListener(ev,e=>{ if(ev==='keydown'&&e.key!==' '&&e.key!=='Enter') return; oathHeld=true; }));
+['pointerup','pointerleave','pointercancel','keyup','blur'].forEach(ev=>ob.addEventListener(ev,()=>oathHeld=false));
+ob.addEventListener('contextmenu',e=>e.preventDefault());
+
+/* game */
+function startGame(){ S.ch=0; S.step=0; show('game'); renderStep(); }
+function renderStep(){
+  const c=CH[S.ch], st=c.steps[S.step]; setWhen(); ledger();
+  ({brief,reveal,press,bean,cannon,sign})[st](c);
+  if(matchMedia('(max-width:860px)').matches) scrollTo(0,0); else $('#stage').scrollIntoView({block:'nearest'});
+}
+function next(){ hush(); const c=CH[S.ch]; if(S.step<c.steps.length-1){ S.step++; renderStep(); } else if(S.ch<CH.length-1){ S.ch++; S.step=0; sfx.bell(); renderStep(); } else startVote(); }
+const readBtn=`<button class="btn quiet" data-read>Read it to me</button>`;
+function wire(){ const st=$('#stage'); const r=st.querySelector('[data-read]'); if(r) r.onclick=()=>speak(st.querySelector('.readable')); const n=st.querySelector('[data-next]'); if(n) n.onclick=next; }
+
+function brief(c){
+  $('#stage').innerHTML=`<div class="readable"><div class="dateline">${c.where}, ${c.year}</div><h2>${c.title}</h2>${c.brief}
+   <div class="voices">${c.voices.map(v=>`<div class="voice"><b>${v[0]}</b>${v[1]}</div>`).join('')}</div></div>
+   <div class="choices">${c.choices.map((o,i)=>`<button class="choice" data-i="${i}"><span class="k">${'ABC'[i]}</span><b>${o.t}</b><span>${o.d}</span></button>`).join('')}</div>
+   <div class="row">${readBtn}</div>`;
+  $('#stage').querySelectorAll('.choice').forEach(b=>b.onclick=()=>{ const i=+b.dataset.i; S.picks[S.ch]=i; apply(c.choices[i].fx); sfx.thud(); next(); });
+  wire();
+}
+function reveal(c){
+  const i=S.picks[S.ch],o=c.choices[i],m=i===c.hist;
+  $('#stage').innerHTML=`<div class="readable"><div class="dateline">Your decision, ${c.year}</div><h2>${o.t}</h2><p>${o.r}</p>${chips(o.fx)}
+   <div class="real"><h3>What really happened</h3><span class="match ${m?'':'no'}">${m?'You chose what the real president chose':'The real president chose differently: '+c.choices[c.hist].t.toLowerCase()}</span>${c.real}</div>
+   ${c.news.length?`<div class="news"><b>Also in the news</b><ul>${c.news.map(n=>`<li>${n}</li>`).join('')}</ul></div>`:''}</div>
+   <div class="row"><button class="btn" data-next>${S.step<c.steps.length-1?'Keep going':S.ch<CH.length-1?'On to the next crisis':'Face Congress'}</button>${readBtn}</div>`;
+  wire();
+}
+
+/* redback press */
+function press(){
+  let n=0,power=0; const hist=[];
+  $('#stage').innerHTML=`<div class="dateline">Try it yourself</div><h2>Run the redback press</h2>
+   <p>Each pull prints $250,000 in fresh redbacks. Watch what happens to what a redback can actually buy. Stop whenever you think you’ve printed enough.</p>
+   <div class="press"><div><div class="redback" id="rb"><div><small>The Republic of Texas</small><strong>Ten Dollars</strong><small id="rbWorth">really worth about $3.70</small></div></div>
+   <div class="row"><button class="btn" id="pull">Pull the press</button></div></div>
+   <dl class="stats"><dt>Printed so far</dt><dd id="pN">$0</dd><dt>One redback dollar buys</dt><dd id="pV">37¢ of goods</dd><dt>Real buying power you’ve created</dt><dd id="pP">$0</dd>
+   <dt>Value of a redback after each pull</dt><dd><div class="spark" id="spark"></div></dd></dl></div>
+   <p id="pMsg">&nbsp;</p><div class="row"><button class="btn quiet" data-next>I’m done printing</button></div>`;
+  $('#pull').onclick=()=>{ const v=Math.max(2,37*Math.pow(.8,n)); n++; const add=250000*v/100; power+=add; hist.push(v); sfx.thud(); sfx.coin();
+    const nv=Math.max(2,37*Math.pow(.8,n));
+    const rb=$('#rb'); rb.classList.add('stamp'); setTimeout(()=>rb.classList.remove('stamp'),150); rb.style.filter=`saturate(${clamp(nv/37+.25,.25,1)})`;
+    $('#pN').textContent='$'+(n*250000).toLocaleString(); $('#pV').textContent=nv.toFixed(nv<10?1:0)+'¢ of goods'; $('#pP').textContent='$'+Math.round(power).toLocaleString();
+    $('#rbWorth').textContent='really worth about $'+(nv/10).toFixed(2);
+    $('#spark').innerHTML=hist.concat(nv).map(x=>`<i style="height:${x/37*100}%"></i>`).join('');
+    $('#pMsg').textContent=`That pull printed $250,000 but added only $${Math.round(add).toLocaleString()} of real buying power.`+(nv<=2.01?' Your money is now nearly worthless. This is where the real redback ended up by 1842.':n>=4?' Notice each pull buys less than the one before. That’s inflation.':'');
+  };
+  wire();
+}
+
+/* black bean */
+function bean(){
+  $('#stage').innerHTML=`<div class="readable"><div class="dateline">Hacienda Salado, Mexico, March 25, 1843</div><h2>The black bean</h2>
+   <p>The guards fill a clay jar with 176 beans. 159 are white. 17 are black. Each prisoner must reach in without looking. A white bean means you live. A black bean means you will be executed.</p>
+   <p>You are one of the prisoners. It’s your turn.</p></div>
+   <div class="beanbox"><div class="jar" aria-hidden="true"></div><div class="bean" id="bn"></div><p id="bnTxt" style="flex:1;min-width:220px;margin:0"></p></div>
+   <div class="row"><button class="btn" id="draw">Reach into the jar</button><button class="btn hidden" data-next>Continue</button></div>`;
+  $('#draw').onclick=e=>{ e.currentTarget.disabled=true; sfx.drum();
+    setTimeout(()=>{ const black=Math.random()<17/176; S.bean=black; const b=$('#bn'); b.classList.toggle('black',black); b.classList.add('show'); black?sfx.bad():sfx.tick();
+      $('#bnTxt').textContent=black?'Black. In 1843, seventeen men opened their hands and saw this. They were allowed to write letters home. They were shot that evening.':'White. You live, and you’ll be marched on to prison in Mexico. Seventeen of the men beside you were not as lucky. They were shot that evening.';
+      e.target.classList.add('hidden'); $('#stage').querySelector('[data-next]').classList.remove('hidden'); },900); };
+  wire();
+}
+
+/* archive war */
+function cannon(){
+  $('#stage').innerHTML=`<div class="dateline">Austin, the night of December 30, 1842</div><h2>The Archive War</h2>
+   <p>Houston says Austin is too exposed and sends men with wagons to quietly haul away the Republic’s official records. Innkeeper Angelina Eberly spots them and runs for the town cannon. You’re Angelina. Aim over the dark houses and fire to wake the town before the wagon gets away.</p>
+   <div class="hud"><span id="cAw">Houses awake: 0 of 7</span><span id="cTm"></span></div>
+   <canvas class="play" id="cv" width="800" height="380"></canvas>
+   <p id="cMsg" style="margin-top:12px">${H.on?'Steer with your hand and pinch to fire.':'Move to aim. Click or tap to fire.'}</p>
+   <div class="row"><button class="btn hidden" data-next>Continue</button></div>`;
+  const cv=$('#cv'),g=cv.getContext&&cv.getContext('2d'); const W=800,HH=380,DUR=24;
+  const houses=[60,165,270,395,505,615,715].map((x,i)=>({x,w:70,h:62+((i*37)%34),awake:false}));
+  const stars=Array.from({length:50},()=>[Math.random()*W,Math.random()*180,Math.random()*1.4+.3]);
+  let aim={x:400,y:200},rings=[],lastFire=-9,t0=performance.now(),done=false;
+  const toCv=(cx,cy)=>{const r=cv.getBoundingClientRect();return{x:(cx-r.left)*W/r.width,y:(cy-r.top)*HH/r.height};};
+  cv.addEventListener('pointermove',e=>{aim=toCv(e.clientX,e.clientY);});
+  cv.addEventListener('click',e=>{ if(e.clientX||e.clientY) aim=toCv(e.clientX,e.clientY); fire(); });
+  function fire(){ const t=(performance.now()-t0)/1000; if(done||t-lastFire<.8) return; lastFire=t; sfx.boom(); rings.push({x:aim.x,y:aim.y,t});
+    houses.forEach(h=>{ const hx=h.x+h.w/2,hy=300-h.h/2; if(!h.awake&&Math.hypot(aim.x-hx,aim.y-hy)<62){h.awake=true;} });
+    $('#cAw').textContent=`Houses awake: ${houses.filter(h=>h.awake).length} of 7`; }
+  function finish(){ done=true; const n=houses.filter(h=>h.awake).length, win=n>=5; S.archives=win; if(win){S.sup=clamp(S.sup+5,0,100);sfx.good();}else sfx.bad(); ledger();
+    $('#cTm').textContent=''; $('#cMsg').innerHTML=(win?'<b>The town is awake.</b> Angry citizens chase the wagons down and bring the records back. ':'<b>The wagon slips away</b> in this version. ')+
+     'In real life Angelina Eberly’s cannon blast did wake Austin. Citizens caught the wagons the next day and hauled the archives home without anyone being killed. Austin stayed the capital, and a statue of Eberly and her cannon stands downtown today.';
+    $('#stage').querySelector('[data-next]').classList.remove('hidden'); }
+  (function loop(now){ if(!cv.isConnected) return; const t=(now-t0)/1000;
+    if(H.on&&H.present&&!done){ aim=toCv(H.x,H.y); }
+    aim.x=clamp(aim.x,0,W); aim.y=clamp(aim.y,0,HH);
+    if(!done){ $('#cTm').textContent=`Wagon escapes in ${Math.max(0,Math.ceil(DUR-t))}s`; if(t>=DUR||houses.every(h=>h.awake)) finish(); }
+    if(g){ const sky=g.createLinearGradient(0,0,0,HH); sky.addColorStop(0,'#081228'); sky.addColorStop(1,'#243a66'); g.fillStyle=sky; g.fillRect(0,0,W,HH);
+      g.fillStyle='#fff'; stars.forEach(s=>{g.globalAlpha=.5+.5*Math.sin(t*2+s[0]);g.fillRect(s[0],s[1],s[2],s[2]);}); g.globalAlpha=1;
+      g.fillStyle='#efe7c8'; g.beginPath(); g.arc(690,60,26,0,7); g.fill(); g.fillStyle='#081228'; g.beginPath(); g.arc(679,53,23,0,7); g.fill();
+      g.fillStyle='#152238'; g.fillRect(0,300,W,80); g.fillStyle='#1e2e4a'; g.fillRect(0,322,W,26);
+      houses.forEach(h=>{ g.fillStyle='#0d1626'; g.fillRect(h.x,300-h.h,h.w,h.h); g.beginPath(); g.moveTo(h.x-6,300-h.h); g.lineTo(h.x+h.w/2,300-h.h-26); g.lineTo(h.x+h.w+6,300-h.h); g.fill();
+        g.fillStyle=h.awake?'#ffd766':'#1c2a44'; g.fillRect(h.x+12,300-h.h+16,16,18); g.fillRect(h.x+h.w-28,300-h.h+16,16,18); });
+      const wx=done&&S.archives?Math.min(-80+(Math.min(t,DUR)/DUR)*900,W*.55):-80+(Math.min(t,DUR)/DUR)*900;
+      g.fillStyle='#6b4a2a'; g.fillRect(wx,312,64,18); g.fillStyle='#c9b68a'; g.fillRect(wx+6,298,18,14); g.fillRect(wx+28,300,16,12); g.fillRect(wx+46,297,14,15);
+      g.fillStyle='#2a1c10'; [wx+14,wx+50].forEach(x=>{g.beginPath();g.arc(x,334,9,0,7);g.fill();}); g.fillStyle='#3d2c1c'; g.fillRect(wx+66,316,26,12);
+      const ang=Math.atan2(aim.y-352,aim.x-400); g.save(); g.translate(400,352); g.rotate(ang); g.fillStyle='#c9a24b'; g.fillRect(0,-7,52,14); g.restore();
+      g.fillStyle='#3d2c1c'; g.beginPath(); g.arc(400,356,15,0,7); g.fill();
+      rings=rings.filter(r=>t-r.t<.7); rings.forEach(r=>{const k=(t-r.t)/.7; g.strokeStyle=`rgba(255,215,102,${1-k})`; g.lineWidth=5*(1-k)+1; g.beginPath(); g.arc(r.x,r.y,10+k*62,0,7); g.stroke();
+        if(k<.15){g.fillStyle='rgba(255,240,200,.25)';g.fillRect(0,0,W,HH);} });
+      if(!done){ const ready=t-lastFire>=.8; g.strokeStyle=ready?'#e7c979':'#7a869e'; g.lineWidth=2; g.beginPath(); g.arc(aim.x,aim.y,18,0,7); g.moveTo(aim.x-26,aim.y); g.lineTo(aim.x+26,aim.y); g.moveTo(aim.x,aim.y-26); g.lineTo(aim.x,aim.y+26); g.stroke(); }
+    }
+    requestAnimationFrame(loop); })(t0);
+  wire();
+}
+
+/* signing */
+function sign(c){
+  const annex=c.choices[S.picks[S.ch]].annex;
+  $('#stage').innerHTML=`<div class="dateline">${c.where}, 1845</div><h2>Sign your name to it</h2>
+   <p class="doc">${annex?'Be it known that the people of Texas accept the offer of the United States, and that Texas shall enter the Union as a state.':'Be it known that the people of Texas accept peace with Mexico, and that Texas shall remain a free and independent republic.'}</p>
+   <p>${H.on?'Pinch your fingers together and write in the air. Let go to lift the pen. A mouse or finger works too.':'Sign with your mouse or finger.'}</p>
+   <canvas class="sig" id="sg" width="900" height="260"></canvas>
+   <div class="row"><button class="btn" id="sgOk" disabled>Sign it into history</button><button class="btn quiet" id="sgClr">Clear</button></div>`;
+  const cv=$('#sg'),g=cv.getContext&&cv.getContext('2d'); let down=false,last=null,len=0,hWas=false;
+  if(g){g.lineCap='round';g.lineJoin='round';g.strokeStyle='#1a1712';g.lineWidth=4;}
+  const pt=(cx,cy)=>{const r=cv.getBoundingClientRect();return{x:(cx-r.left)*900/r.width,y:(cy-r.top)*260/r.height,in:cx>=r.left&&cx<=r.right&&cy>=r.top&&cy<=r.bottom};};
+  const seg=p=>{ if(last&&g){g.beginPath();g.moveTo(last.x,last.y);g.lineTo(p.x,p.y);g.stroke();len+=Math.hypot(p.x-last.x,p.y-last.y); if(len>120)$('#sgOk').disabled=false;} last=p; };
+  cv.addEventListener('pointerdown',e=>{down=true;last=pt(e.clientX,e.clientY);try{cv.setPointerCapture(e.pointerId)}catch(_){ }});
+  cv.addEventListener('pointermove',e=>{ if(down) seg(pt(e.clientX,e.clientY)); });
+  ['pointerup','pointercancel'].forEach(ev=>cv.addEventListener(ev,()=>{down=false;last=null;}));
+  $('#sgClr').onclick=()=>{ if(g)g.clearRect(0,0,900,260); len=0; $('#sgOk').disabled=true; };
+  $('#sgOk').onclick=()=>{ try{S.sig=cv.toDataURL('image/png')}catch(e){S.sig=null} sfx.fanfare(); next(); };
+  (function loop(){ if(!cv.isConnected) return;
+    if(H.on&&H.present&&!down){ const p=pt(H.x,H.y); if(H.pinch&&p.in){ if(!hWas) last=p; else seg(p); hWas=true; } else { if(hWas) last=null; hWas=false; } }
+    requestAnimationFrame(loop); })();
+}
+
+/* congress vote */
+function startVote(){
+  S.vote=0; let q=0; show('vote'); $('#when').innerHTML='<b>1845</b>One last stop';
+  const st=$('#voteStage');
+  function ask(){
+    const[v,ans,why]=VOTES[q]; let answered=false,hold=0,dir=null,last=performance.now();
+    st.innerHTML=`<div class="dateline">Question ${q+1} of ${VOTES.length}</div><h2>Congress wants answers</h2>
+     <p style="margin:0 auto">Vote aye if the statement is true and nay if it’s false.${H.on?' Hold a thumbs up or thumbs down, or pinch a button.':''}</p>
+     <p class="stmt">${v}</p>
+     <div class="ayenay"><button class="vbtn" id="aye">Aye<small>true</small><i></i></button><button class="vbtn" id="nay">Nay<small>false</small><i></i></button></div>
+     <p id="vWhy" style="margin:18px auto 0;min-height:3.2em"></p><div class="row" style="justify-content:center"><button class="btn hidden" id="vNext">${q<VOTES.length-1?'Next question':'See your record'}</button></div>`;
+    const A=$('#aye'),N=$('#nay');
+    function answer(b){ if(answered) return; answered=true; const ok=b===ans; if(ok){S.vote++;sfx.good();}else sfx.bad();
+      (b?A:N).classList.add(ok?'right':'wrong'); if(!ok)(ans?A:N).classList.add('right'); A.querySelector('i').style.width=N.querySelector('i').style.width='0';
+      $('#vWhy').innerHTML=`<b>${ok?'Correct.':'Not quite.'}</b> ${why}`; $('#vNext').classList.remove('hidden'); }
+    A.onclick=()=>answer(true); N.onclick=()=>answer(false);
+    $('#vNext').onclick=()=>{ q++; q<VOTES.length?ask():finale(); };
+    (function loop(now){ if(answered||!A.isConnected) return; const dt=(now-last)/1000; last=now;
+      const gs=H.on?H.gesture:'none', d=gs==='up'?'up':gs==='down'?'down':null;
+      if(d&&d===dir) hold+=dt; else {hold=0;dir=d;}
+      A.querySelector('i').style.width=(dir==='up'?hold/.9*100:0)+'%'; N.querySelector('i').style.width=(dir==='down'?hold/.9*100:0)+'%';
+      if(hold>=.9) answer(dir==='up'); else requestAnimationFrame(loop); })(last);
+  }
+  ask();
+}
+
+/* final record */
+function legacy(){
+  if(S.debt>=12) return ['The Dreamer','Like Lamar, you thought big, and you left behind a mountain of debt.'];
+  if(S.debt<=8.5&&S.stand>=50) return ['The Old Fox','Like Houston, you kept the country alive by spending little and making friends abroad.'];
+  if(S.sup>=65) return ['The People’s President','Texans loved you. Whether the bills got paid is another matter.'];
+  if(S.sec>=60) return ['Guardian of the Frontier','You put safety first, and Texas was safer for it.'];
+  return ['The Survivor','You held a broke young nation together for ten years. The real presidents found that hard enough.'];
+}
+function finale(){
+  show('final'); $('#when').innerHTML='<b>1846</b>The record';
+  const[t,line]=legacy(), matches=CH.filter((c,i)=>S.picks[i]===c.hist).length, annex=CH[7].choices[S.picks[7]].annex;
+  const end=annex?'You brought Texas into the United States as the 28th state, just as Texans did in 1845.':'You kept Texas independent. Real Texans chose the other path, 55 to 1. Historians still wonder how long a Texas this deep in debt could have lasted alone.';
+  $('#finalStage').innerHTML=`<div class="cert"><div class="dateline">The presidential record of</div><h2>${S.name==='the President'?'The President':S.name}</h2>
+    <div class="who">will be remembered as ${t}</div><p style="margin:0 auto">${line} ${end}</p>
+    <div class="grid"><div><b>${fmtDebt(S.debt).replace(' million','M')}</b><span>debt (real history: $10M)</span></div><div><b>${matches} of 8</b><span>decisions matching history</span></div>
+    <div><b>${S.vote} of ${VOTES.length}</b><span>correct in Congress</span></div><div><b>${S.archives===null?'n/a':S.archives?'Saved':'Lost'}</b><span>the Austin archives</span></div></div>
+    ${S.sig?`<img src="${S.sig}" alt="Your signature"><div class="dateline">signed</div>`:''}</div>
+   <h3>Your choices next to the real ones</h3>
+   <div class="scrollx"><table class="cmp"><tr><th>Crisis</th><th>You</th><th>The real president</th></tr>
+    ${CH.map((c,i)=>`<tr><td>${c.year}: ${c.title}</td><td>${c.choices[S.picks[i]].t}</td><td>${c.choices[c.hist].t}${S.picks[i]===c.hist?' (same)':''}</td></tr>`).join('')}</table></div>
+   <h3>Before you close this</h3><p>Pick the one decision where you disagreed most with the real president. Be ready to explain what you would have done and what it might have cost.</p>
+   <div class="row"><button class="btn" id="dl">Download my record</button><button class="btn quiet" id="again">Serve another term</button></div>`;
+  $('#again').onclick=()=>location.reload();
+  $('#dl').onclick=()=>downloadCert(t,matches);
+  sfx.fanfare();
+}
+function downloadCert(title,matches){
+  try{
+    const c=document.createElement('canvas'); c.width=1400; c.height=900; const g=c.getContext('2d');
+    g.fillStyle='#12284c'; g.fillRect(0,0,1400,900); g.fillStyle='#f1eddf'; g.fillRect(40,40,1320,820);
+    g.strokeStyle='#1a1712'; g.lineWidth=6; g.strokeRect(64,64,1272,772); g.lineWidth=2; g.strokeRect(76,76,1248,748);
+    g.fillStyle='#1a1712'; g.textAlign='center';
+    g.font='italic 30px "Libre Caslon Text",Georgia,serif'; g.fillText('The Republic of Texas, 1836 to 1845',700,150);
+    g.font='86px "Abril Fatface",Georgia,serif'; g.fillText(S.name==='the President'?'The President':S.name,700,260);
+    g.font='italic 36px "Libre Caslon Text",Georgia,serif'; g.fillText('will be remembered as '+title,700,330);
+    const st=[[fmtDebt(S.debt),'debt owed (real history: $10 million)'],[matches+' of 8','decisions matching history'],[S.vote+' of '+VOTES.length,'correct in Congress']];
+    st.forEach((s,i)=>{ const x=280+i*420; g.font='54px "Abril Fatface",Georgia,serif'; g.fillText(s[0],x,470); g.font='italic 22px "Libre Caslon Text",Georgia,serif'; g.fillText(s[1],x,508); });
+    const done=()=>{ g.beginPath(); g.moveTo(480,740); g.lineTo(920,740); g.stroke(); g.font='italic 22px "Libre Caslon Text",Georgia,serif'; g.fillText('signed',700,772);
+      const a=document.createElement('a'); a.download='republic-of-texas-record.png'; a.href=c.toDataURL('image/png'); document.body.appendChild(a); a.click(); a.remove(); toast('Downloaded. If nothing happened, take a screenshot instead.'); };
+    if(S.sig){ const im=new Image(); im.onload=()=>{ g.drawImage(im,480,580,440,127); done(); }; im.onerror=done; im.src=S.sig; } else done();
+  }catch(e){ toast('Download isn’t available here. Take a screenshot instead.'); }
+}
+</script>
+</body>
+</html>
